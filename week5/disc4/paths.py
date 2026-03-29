@@ -12,6 +12,7 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
+    # From goal to start, if there is only 1 grid, path will add 1
     if m == 1 or n == 1:
         return 1
     

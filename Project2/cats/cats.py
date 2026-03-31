@@ -38,6 +38,17 @@ def pick(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    para_length = len(paragraphs)
+    blank_list = []
+    
+    for i in range(para_length):
+        if select(paragraphs[i]):
+            blank_list = blank_list + [paragraphs[i]]
+            
+    if k >= len(blank_list):
+        return ''
+    else:
+        return blank_list[k]
     # END PROBLEM 1
 
 

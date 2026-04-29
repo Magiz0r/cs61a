@@ -69,6 +69,15 @@ def about(subject):
 
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def compare(paragraph):
+        paragraph = split(remove_punctuation(lower(paragraph)))
+        for i in subject:
+            for j in paragraph:
+                if i == j:
+                    return True
+        
+        return False
+    return compare
     # END PROBLEM 2
 
 
@@ -98,7 +107,42 @@ def accuracy(typed, source):
     typed_words = split(typed)
     source_words = split(source)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    "*** YOUR CODE HERE ***"    
+    # base case
+    if len(typed) and len(source) == 0:
+        return float(100)
+    elif len(typed) == 0 and len(source) != 0:
+        return float(0)
+    elif len(typed) != 0 and len(source) == 0:
+        return float(0)
+    
+    count = 0
+
+    typed = split(typed)
+    source = split(source)
+    len_typed = len(typed)
+    len_source = len(source)
+
+    
+    # all same
+    if typed == source: 
+        return float(100)
+    
+    
+    if len_typed > len_source:
+        for i in range(len_source):
+            if typed[i] == source[i]:
+                count += 1
+                
+        return float(100 * (count / len_typed))
+    
+    else:
+        for i in range(len_typed):
+            if typed[i] == source[i]:
+                count += 1
+                
+        return float(100 * (count / len_typed))
+    
     # END PROBLEM 3
 
 

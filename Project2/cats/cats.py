@@ -104,12 +104,12 @@ def accuracy(typed, source):
     >>> accuracy('', '')
     100.0
     """
-    typed_words = split(typed)
-    source_words = split(source)
+    # typed_words = split(typed)
+    # source_words = split(source)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"    
     # base case
-    if len(typed) and len(source) == 0:
+    if len(typed) == 0 and len(source) == 0:
         return float(100)
     elif len(typed) == 0 and len(source) != 0:
         return float(0)
@@ -122,13 +122,7 @@ def accuracy(typed, source):
     source = split(source)
     len_typed = len(typed)
     len_source = len(source)
-
-    
-    # all same
-    if typed == source: 
-        return float(100)
-    
-    
+        
     if len_typed > len_source:
         for i in range(len_source):
             if typed[i] == source[i]:
@@ -142,7 +136,6 @@ def accuracy(typed, source):
                 count += 1
                 
         return float(100 * (count / len_typed))
-    
     # END PROBLEM 3
 
 
@@ -161,6 +154,9 @@ def wpm(typed, elapsed):
     assert elapsed > 0, "Elapsed time must be positive"
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    time = 60 / elapsed
+    len_val = len(typed)
+    return float(len_val / 5 * time)
     # END PROBLEM 4
 
 
@@ -222,6 +218,18 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    diff_table = []
+    for word in word_list:
+        diff_table.append(diff_function(typed_word, word, limit))
+        
+    idx = [x for x in range(len(diff_table)) if diff_table[x] == min(diff_table)]
+    
+    if typed_word in word_list:
+        return typed_word
+    elif min(diff_table) > limit:
+        return typed_word
+    else:
+        return word_list[idx[0]]
     # END PROBLEM 5
 
 
@@ -248,7 +256,13 @@ def furry_fixes(typed, source, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    # assert False, 'Remove this line'
+    diff_str_length = abs(len(typed) - len(source))
+    count = 0
+    i = 0
+    
+    
+    
     # END PROBLEM 6
 
 

@@ -261,7 +261,22 @@ def furry_fixes(typed, source, limit):
     count = 0
     i = 0
     
+    if limit < 0:
+        return 1
     
+    if typed == '' and len(typed) != len(source):
+        count += diff_str_length
+        return count
+    elif source == '' and len(typed) != len(source):
+        count += diff_str_length
+        return count
+    elif typed == '':
+        return count
+    
+    if typed[0] != source[0]:
+        count += 1
+    
+    return furry_fixes(typed[i+1:], source[i+1:], limit - count) + count
     
     # END PROBLEM 6
 
@@ -283,23 +298,44 @@ def minimum_mewtations(typed, source, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-    if ___________: # Base cases should go here, you may add more base cases as needed.
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-    # Recursive cases should go below here
-    if ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    # assert False, 'Remove this line'
+    
+    ########################
+    # Levenshtein distance #
+    ########################
+    
+    if limit < 0:
+        return 1
+    
+    if typed == '' or source == '':
+        return abs(len(typed) - len(source))
+    
+    if typed[0] == source[0]:
+        return minimum_mewtations(typed[1:], source[1:], limit)
+    
     else:
-        add = ... # Fill in these lines
-        remove = ...
-        substitute = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        add = minimum_mewtations(typed, source[1:], limit - 1)
+        remove = minimum_mewtations(typed[1:], source, limit - 1)
+        substitute = minimum_mewtations(typed[1:], source[1:], limit - 1)
+        
+        return min(add, remove, substitute) + 1
+    
+    # if ___________: # Base cases should go here, you may add more base cases as needed.
+    #     # BEGIN
+    #     "*** YOUR CODE HERE ***"
+    #     # END
+    # # Recursive cases should go below here
+    # if ___________: # Feel free to remove or add additional cases
+    #     # BEGIN
+    #     "*** YOUR CODE HERE ***"
+    #     # END
+    # else:
+    #     add = ... # Fill in these lines
+    #     remove = ...
+    #     substitute = ...
+    #     # BEGIN
+    #     "*** YOUR CODE HERE ***"
+    #     # END
 
 
 # Ignore the line below
@@ -345,6 +381,21 @@ def report_progress(typed, source, user_id, upload):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    counts = 0
+    progress = 0
+    i = 0
+    while i <= len(typed) - 1:
+        if typed[i] == source[i]:
+            i += 1
+            counts += 1
+        else:
+            i = len(typed) + 1
+
+    progress = counts / len(source)
+    id_dict = {'id': user_id,
+               'progress': progress}
+    upload(id_dict)
+    return progress
     # END PROBLEM 8
 
 

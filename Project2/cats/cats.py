@@ -389,7 +389,7 @@ def report_progress(typed, source, user_id, upload):
             i += 1
             counts += 1
         else:
-            i = len(typed) + 1
+            break
 
     progress = counts / len(source)
     id_dict = {'id': user_id,
